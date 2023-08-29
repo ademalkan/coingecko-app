@@ -1,0 +1,22 @@
+.main {
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas:
+      "header "
+      "content"
+      "footer ";
+    grid-template-rows: max-content auto max-content;
+  }
+  .header {
+    grid-area: header;
+  }
+  .content {
+    grid-area: content;
+    display: inline-grid;
+    display: -moz-inline-grid;
+    display: -ms-inline-grid;
+  }
+  .footer {
+    grid-area: footer;
+  }
+  
