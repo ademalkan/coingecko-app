@@ -1,6 +1,8 @@
 import { CoingeckoI } from "@/utils/interfaces/coingecko-api";
 import Image from "next/image";
 import React from "react";
+import TinyLineChart from "../TinyLineChart";
+import { priceDecimalFormatter } from "@/utils/helpers";
 
 interface DataTablePropsI {
   coins: CoingeckoI[];
@@ -16,6 +18,8 @@ const DataTable = (props: DataTablePropsI): React.ReactNode => {
           <th className="py-2 ">Coin Name</th>
           <th className="py-2 ">Curren Price</th>
           <th className="py-2 ">Total Volume</th>
+          <th className="py-2 ">Market Cap Change Percentage (24h)</th>
+          <th className="py-2 ">Change Graph (24h) </th>
         </tr>
       </thead>
       <tbody>
@@ -31,8 +35,22 @@ const DataTable = (props: DataTablePropsI): React.ReactNode => {
               />
             </td>
             <td className="py-1 ">{coin.name}</td>
-            <td className="py-1 ">${coin.current_price}</td>
-            <td className="py-1 ">${coin.total_volume}</td>
+            <td className="py-1 ">{priceDecimalFormatter(coin.current_price)}</td>
+            <td className="py-1 ">{priceDecimalFormatter(coin.total_volume  )}</td>
+            <td
+              className={`py-1  ${
+                coin.market_cap_change_percentage_24h > 0 ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              %{coin.market_cap_change_percentage_24h}
+            </td>
+            <td className="py-1 ">
+              <TinyLineChart
+                highValue={coin.high_24h}
+                lowValue={coin.low_24h}
+                price_change_24h={coin.price_change_24h}
+              />
+            </td>
           </tr>
         ))}
       </tbody>
