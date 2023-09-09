@@ -5,7 +5,7 @@ import HoverAnimation from "../HoverAnimation";
 const ApiFetchError = (): React.ReactNode => {
   return (
     <div className="w-full flex items-center justify-center flex-col h-full">
-      <HoverAnimation className="flex flex-col items-center">
+      <HoverAnimation className="flex flex-col items-center text-center">
         <Image
           src={"/images/coin-gecko.png"}
           width={150}

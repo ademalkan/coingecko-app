@@ -4,11 +4,11 @@ import {
   DataTable,
   DataTableActions,
   DataTableLoader,
-  TinyLineChart,
 } from "@/components";
 import { useGetCoinsQuery } from "@/features/api/coingeckoApiSlice";
-import React, { useState } from "react";
-
+import CoinsMockHelper from "@/utils/helpers/CoinsMockHelper";
+import { CoingeckoI } from "@/utils/interfaces/coingecko-api";
+import React, { useEffect, useState } from "react";
 interface pageOptionsStateI {
   page_amount: number;
   per_page_amount: number;
@@ -21,6 +21,7 @@ export default function Home(): React.ReactNode {
     per_page_amount: 100,
     search_query: "",
   });
+  const [mockCoins, setMockCoins] = useState<CoingeckoI[]>([]);
 
   const {
     data: coins,
@@ -40,11 +41,12 @@ export default function Home(): React.ReactNode {
     });
   };
   const prevPageHandler = (): void => {
-    pageOptions.page_amount > 1 &&
+    if (pageOptions.page_amount > 1) {
       setPageOptions({
         ...pageOptions,
         page_amount: (pageOptions.page_amount -= 1),
       });
+    }
   };
 
   const searchHandler = (searchText: string): void => {
@@ -54,18 +56,35 @@ export default function Home(): React.ReactNode {
     });
   };
 
+  useEffect(() => {
+    const coinsMockHelper = new CoinsMockHelper();
+
+    if (!isLoading && !isSuccess && isError) {
+      coinsMockHelper.setCoins();
+      setMockCoins(JSON.parse(localStorage.getItem("coins") || ""));
+    }
+  }, []);
+
   return (
     <article>
-      {!isError && (
-        <DataTableActions
-          nextPageHandler={nextPageHandler}
-          prevPageHandler={prevPageHandler}
-          searchHandler={searchHandler}
-        />
-      )}
+      <DataTableActions
+        nextPageHandler={nextPageHandler}
+        prevPageHandler={prevPageHandler}
+        searchHandler={searchHandler}
+      />
 
       {isLoading && <DataTableLoader />}
-      {isError && <ApiFetchError />}
+      {isError && (
+        <>
+          <>
+            <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center">
+              Coingecko rate limit is full. You now see old data. If you want to
+              see the most current data, try again in 15-20 minutes.
+            </div>
+            <DataTable coins={mockCoins} />
+          </>
+        </>
+      )}
       {isSuccess && (
         <>
           {!isLoading && coins.length > 0 && (

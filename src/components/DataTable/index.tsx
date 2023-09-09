@@ -35,20 +35,29 @@ const DataTable = (props: DataTablePropsI): React.ReactNode => {
               />
             </td>
             <td className="py-1 ">{coin.name}</td>
-            <td className="py-1 ">{priceDecimalFormatter(coin.current_price)}</td>
-            <td className="py-1 ">{priceDecimalFormatter(coin.total_volume  )}</td>
+            <td className="py-1 ">
+              {priceDecimalFormatter(coin.current_price)}
+            </td>
+            <td className="py-1 ">
+              {priceDecimalFormatter(coin.total_volume)}
+            </td>
+            {/* eslint-disable multiline-ternary */}
             <td
               className={`py-1  ${
-                coin.market_cap_change_percentage_24h > 0 ? "text-green-500" : "text-red-500"
+                coin?.market_cap_change_percentage_24h &&
+                coin?.market_cap_change_percentage_24h > 0
+                  ? "text-green-500"
+                  : "text-red-500"
               }`}
             >
               %{coin.market_cap_change_percentage_24h}
             </td>
+            {/* eslint-enable multiline-ternary */}
             <td className="py-1 ">
               <TinyLineChart
-                highValue={coin.high_24h}
-                lowValue={coin.low_24h}
-                price_change_24h={coin.price_change_24h}
+                highValue={coin?.high_24h ?? 0}
+                lowValue={coin?.low_24h ?? 0}
+                price_change_24h={coin?.price_change_24h ?? 0}
               />
             </td>
           </tr>

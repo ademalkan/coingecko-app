@@ -5,6 +5,7 @@ export const coingeckoApiSlice = createApi({
   reducerPath: "coingeckoApiSlice",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.coingecko.com/api/v3/coins/markets",
+    // baseUrl: "https://s",
   }),
   endpoints: (builder) => ({
     getCoins: builder.query<
@@ -15,9 +16,7 @@ export const coingeckoApiSlice = createApi({
         `?vs_currency=usd&order=market_cap_desc&precision=2&page=${
           queryParams.page_amount
         }&per_page=${queryParams.per_page_amount}
-        ${
-          queryParams.search_query ? `&ids=${queryParams.search_query}` : ""
-        }`,
+        ${queryParams.search_query ? `&ids=${queryParams.search_query}` : ""}`,
     }),
 
     getCoinsCount: builder.query<CoingeckoI[], {}>({
