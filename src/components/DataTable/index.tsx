@@ -28,8 +28,8 @@ const DataTable = (props: DataTablePropsI): React.ReactNode => {
             <td className="py-1">
               <Image
                 className="m-auto bg-white p-1 rounded-lg"
-                src={coin.image}
-                alt={coin.id}
+                src={coin?.image}
+                alt={coin?.id}
                 width={30}
                 height={30}
               />

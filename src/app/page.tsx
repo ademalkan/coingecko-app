@@ -16,6 +16,8 @@ interface pageOptionsStateI {
 }
 
 export default function Home(): React.ReactNode {
+  const coinsMockHelper = new CoinsMockHelper();
+
   const [pageOptions, setPageOptions] = useState<pageOptionsStateI>({
     page_amount: 1,
     per_page_amount: 100,
@@ -33,6 +35,15 @@ export default function Home(): React.ReactNode {
     per_page_amount: pageOptions.per_page_amount,
     search_query: pageOptions.search_query,
   });
+
+  isSuccess ?? coinsMockHelper.setCoins(coins);
+
+  useEffect(() => {
+    if (isError && !mockCoins.length) {
+      const getCoinsResult = coinsMockHelper.getCoins();
+      getCoinsResult ?? setMockCoins(getCoinsResult);
+    }
+  }, [isError]);
 
   const nextPageHandler = (): void => {
     setPageOptions({
@@ -56,25 +67,19 @@ export default function Home(): React.ReactNode {
     });
   };
 
-  useEffect(() => {
-    const coinsMockHelper = new CoinsMockHelper();
-
-    if (!isLoading && !isSuccess && isError) {
-      coinsMockHelper.setCoins();
-      setMockCoins(JSON.parse(localStorage.getItem("coins") || ""));
-    }
-  }, []);
-
   return (
     <article>
-      <DataTableActions
-        nextPageHandler={nextPageHandler}
-        prevPageHandler={prevPageHandler}
-        searchHandler={searchHandler}
-      />
+      {isLoading ?? <DataTableLoader />}
 
-      {isLoading && <DataTableLoader />}
-      {isError && (
+      {!isError ?? (
+        <DataTableActions
+          nextPageHandler={nextPageHandler}
+          prevPageHandler={prevPageHandler}
+          searchHandler={searchHandler}
+        />
+      )}
+
+      {isError ?? (
         <>
           <>
             <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center">
@@ -85,15 +90,18 @@ export default function Home(): React.ReactNode {
           </>
         </>
       )}
+
       {isSuccess && (
         <>
-          {!isLoading && coins.length > 0 && (
+          {(!isLoading && coins.length > 0) ?? (
             <>
               <DataTable coins={coins} />
             </>
           )}
         </>
       )}
+
+      {(isError && !mockCoins.length) ?? <ApiFetchError />}
     </article>
   );
 }
