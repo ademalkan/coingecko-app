@@ -11,9 +11,8 @@ const DataTableLoader = (): React.ReactNode => {
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
     >
-      <rect y="0" rx="4" ry="4" width="100%" height="38" />
       <rect y="50" rx="4" ry="4" width="100%" height="38" />
-      <rect y="102" rx="4" ry="4" width="100%" height="38" />
+      <rect y="100" rx="4" ry="4" width="100%" height="38" />
       <rect y="152" rx="4" ry="4" width="100%" height="38" />
       <rect y="202" rx="4" ry="4" width="100%" height="38" />
       <rect y="252" rx="4" ry="4" width="100%" height="38" />
@@ -23,6 +22,9 @@ const DataTableLoader = (): React.ReactNode => {
       <rect y="452" rx="4" ry="4" width="100%" height="38" />
       <rect y="502" rx="4" ry="4" width="100%" height="38" />
       <rect y="552" rx="4" ry="4" width="100%" height="38" />
+      <rect y="602" rx="4" ry="4" width="100%" height="38" />
+      <rect y="652" rx="4" ry="4" width="100%" height="38" />
+      <rect y="702" rx="4" ry="4" width="100%" height="38" />
     </ContentLoader>
   );
 };

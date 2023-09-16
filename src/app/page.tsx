@@ -5,24 +5,16 @@ import {
   DataTableActions,
   DataTableLoader,
 } from "@/components";
-import { useGetCoinsQuery } from "@/features/api/coingeckoApiSlice";
-import CoinsMockHelper from "@/utils/helpers/CoinsMockHelper";
-import { CoingeckoI } from "@/utils/interfaces/coingecko-api";
 import React, { useEffect, useState } from "react";
-interface pageOptionsStateI {
-  page_amount: number;
-  per_page_amount: number;
-  search_query: string;
-}
+import { useSelector } from "react-redux";
+import { CoingeckoI, CoinsMockHelper } from "@/utils";
+import { SearchSliceI, useGetCoinsQuery } from "@/features";
 
 export default function Home(): React.ReactNode {
   const coinsMockHelper = new CoinsMockHelper();
 
-  const [pageOptions, setPageOptions] = useState<pageOptionsStateI>({
-    page_amount: 1,
-    per_page_amount: 100,
-    search_query: "",
-  });
+  const searchSlice = useSelector((state: SearchSliceI) => state?.searchSlice);
+
   const [mockCoins, setMockCoins] = useState<CoingeckoI[]>([]);
 
   const {
@@ -30,56 +22,22 @@ export default function Home(): React.ReactNode {
     isLoading,
     isSuccess,
     isError,
-  } = useGetCoinsQuery({
-    page_amount: pageOptions.page_amount,
-    per_page_amount: pageOptions.per_page_amount,
-    search_query: pageOptions.search_query,
-  });
+  } = useGetCoinsQuery(searchSlice);
 
-  isSuccess ?? coinsMockHelper.setCoins(coins);
+  if (isSuccess) coinsMockHelper.setCoins(coins);
 
   useEffect(() => {
     if (isError && !mockCoins.length) {
       const getCoinsResult = coinsMockHelper.getCoins();
-      getCoinsResult ?? setMockCoins(getCoinsResult);
+      if (getCoinsResult) setMockCoins(getCoinsResult);
     }
   }, [isError]);
 
-  const nextPageHandler = (): void => {
-    setPageOptions({
-      ...pageOptions,
-      page_amount: (pageOptions.page_amount += 1),
-    });
-  };
-  const prevPageHandler = (): void => {
-    if (pageOptions.page_amount > 1) {
-      setPageOptions({
-        ...pageOptions,
-        page_amount: (pageOptions.page_amount -= 1),
-      });
-    }
-  };
-
-  const searchHandler = (searchText: string): void => {
-    setPageOptions({
-      ...pageOptions,
-      search_query: (pageOptions.search_query = searchText),
-    });
-  };
-
   return (
     <article>
-      {isLoading ?? <DataTableLoader />}
+      {isLoading && <DataTableLoader />}
 
-      {!isError ?? (
-        <DataTableActions
-          nextPageHandler={nextPageHandler}
-          prevPageHandler={prevPageHandler}
-          searchHandler={searchHandler}
-        />
-      )}
-
-      {isError ?? (
+      {isError && (
         <>
           <>
             <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center">
@@ -93,15 +51,12 @@ export default function Home(): React.ReactNode {
 
       {isSuccess && (
         <>
-          {(!isLoading && coins.length > 0) ?? (
-            <>
-              <DataTable coins={coins} />
-            </>
-          )}
+          <DataTableActions />
+          <DataTable coins={coins} />
         </>
       )}
 
-      {(isError && !mockCoins.length) ?? <ApiFetchError />}
+      {isError && !mockCoins.length && <ApiFetchError />}
     </article>
   );
 }

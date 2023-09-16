@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const AppFooter = () => {
-  return (
-    <div className='bg-green-500 py-1'></div>
-  )
-}
+const AppFooter = (): React.ReactNode => {
+  return <div className="bg-green-500 py-1"></div>;
+};
 
-export default AppFooter
+export default AppFooter;

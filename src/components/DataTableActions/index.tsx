@@ -1,28 +1,24 @@
-import React, { MouseEventHandler } from "react";
-import HoverAnimation from "../HoverAnimation";
+import React from "react";
 import ActionButton from "../ActionButton";
+import SearchBar from "../SearchBar";
+import { pageAmountEdit } from "@/features/search/searchSlice";
+import { useDispatch } from "react-redux";
 
-interface DataTableActionsPropsI {
-  prevPageHandler: MouseEventHandler<HTMLButtonElement>;
-  nextPageHandler: MouseEventHandler<HTMLButtonElement>;
-  searchHandler: (searchText: string) => void;
-}
+const DataTableActions = (): React.ReactNode => {
+  const dispatch = useDispatch();
 
-const DataTableActions = (props: DataTableActionsPropsI): React.ReactNode => {
-  const { prevPageHandler, nextPageHandler, searchHandler } = props;
+  const nextPageHandler = (): void => {
+    dispatch(pageAmountEdit("next"));
+  };
+  const prevPageHandler = (): void => {
+    dispatch(pageAmountEdit("prev"));
+  };
 
   return (
     <>
       <div className="flex justify-between items-center p-2">
         <ActionButton text="Prev" onClickHandler={prevPageHandler} />
-        <HoverAnimation className="w-2/5" tapScale={1.1}>
-          <input
-            className="bg-slate-300 w-full px-2 py-1 focus:outline-0 rounded-lg"
-            placeholder="Search coin"
-            type="text"
-            onChange={(event) => searchHandler(event.currentTarget.value)}
-          />
-        </HoverAnimation>
+        <SearchBar />
         <ActionButton text="Next" onClickHandler={nextPageHandler} />
       </div>
     </>

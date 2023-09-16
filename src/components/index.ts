@@ -7,3 +7,4 @@ export { default as ApiFetchError } from "./ApiFetchError";
 export { default as HoverAnimation } from "./HoverAnimation";
 export { default as ActionButton } from "./ActionButton";
 export { default as TinyLineChart } from "./TinyLineChart";
+export { default as SearchBar } from "./SearchBar";

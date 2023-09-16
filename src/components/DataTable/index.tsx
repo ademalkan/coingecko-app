@@ -1,8 +1,7 @@
-import { CoingeckoI } from "@/utils/interfaces/coingecko-api";
 import Image from "next/image";
 import React from "react";
 import TinyLineChart from "../TinyLineChart";
-import { priceDecimalFormatter } from "@/utils/helpers";
+import { CoingeckoI, priceDecimalFormatter } from "@/utils";
 
 interface DataTablePropsI {
   coins: CoingeckoI[];

@@ -1,4 +1,4 @@
-import { CoingeckoI } from "@/utils/interfaces/coingecko-api";
+import { CoingeckoI } from "@/utils";
 
 export class CoinsMockHelper {
   public setCoins(coins: CoingeckoI[]): void {
