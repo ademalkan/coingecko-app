@@ -5,7 +5,7 @@ export class CoinsMockHelper {
     localStorage.setItem("coins", JSON.stringify(coins));
   }
   public getCoins(): CoingeckoI[] {
-    return JSON.parse(localStorage.getItem("coins") || "");
+    return JSON.parse(localStorage.getItem("coins") || "[]");
   }
   public refreshCoins(coins: CoingeckoI[]): void {
     localStorage.clear();

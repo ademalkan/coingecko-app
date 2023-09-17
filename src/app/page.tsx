@@ -36,12 +36,12 @@ export default function Home(): React.ReactNode {
 
   return (
     <article>
-      {isLoading && <DataTableLoader />}
+      {isLoading && !isError && <DataTableLoader />}
 
-      {isError && (
+      {isError && mockCoins.length > 0 && (
         <>
           <>
-            <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center">
+            <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center h-full">
               Coingecko rate limit is full. You now see old data. If you want to
               see the most current data, try again in 15-20 minutes.
             </div>
@@ -50,7 +50,7 @@ export default function Home(): React.ReactNode {
         </>
       )}
 
-      {isSuccess && (
+      {isSuccess && !isError && (
         <>
           <DataTableActions />
           {coins.length > 0 ? <DataTable coins={coins} /> : <NotFoundCoin />}
