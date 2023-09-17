@@ -18,7 +18,7 @@ const SearchBar = (): React.ReactNode => {
 
   return (
     <>
-      <HoverAnimation className="w-2/5 flex " tapScale={1.1}>
+      <HoverAnimation className="md:w-2/5 my-3 md:my-0 flex " tapScale={1.1}>
         <input
           className="bg-slate-200 w-full px-2 py-1 focus:outline-0 rounded-lg rounded-r-none"
           placeholder={"Search Coin on Full Name"}

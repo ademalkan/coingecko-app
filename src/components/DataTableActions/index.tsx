@@ -16,7 +16,7 @@ const DataTableActions = (): React.ReactNode => {
 
   return (
     <>
-      <div className="flex justify-between items-center p-2">
+      <div className="flex justify-between md:flex-row flex-col items-center p-2">
         <ActionButton text="Prev" onClickHandler={prevPageHandler} />
         <SearchBar />
         <ActionButton text="Next" onClickHandler={nextPageHandler} />
