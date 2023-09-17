@@ -57,7 +57,7 @@ export default function Home(): React.ReactNode {
         </>
       )}
 
-      {isError && !mockCoins.length && <ApiFetchError />}
+      {isError && mockCoins.length == 0 && <ApiFetchError />}
     </article>
   );
 }
