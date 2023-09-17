@@ -1,2 +1,2 @@
-export * from "./CoinsMockHelper";
+export * from "../methods";
 export * from "./Formatter";

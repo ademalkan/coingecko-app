@@ -4,6 +4,7 @@ import {
   DataTable,
   DataTableActions,
   DataTableLoader,
+  NotFoundCoin,
 } from "@/components";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -52,7 +53,7 @@ export default function Home(): React.ReactNode {
       {isSuccess && (
         <>
           <DataTableActions />
-          <DataTable coins={coins} />
+          {coins.length > 0 ? <DataTable coins={coins} /> : <NotFoundCoin />}
         </>
       )}
 
