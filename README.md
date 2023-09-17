@@ -1,6 +1,6 @@
-# Live : https://musical-sunflower-19b506.netlify.app/
+## Live : https://musical-sunflower-19b506.netlify.app/
 
-# App Description : This app use to coingecko free api. If app get rate limit error this moment get the saved them before data and users see this data
+### App Description : This app use to coingecko free api. If app get rate limit error this moment get the saved them before data and users see this data
 
 ## App Images
 
