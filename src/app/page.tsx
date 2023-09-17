@@ -41,7 +41,7 @@ export default function Home(): React.ReactNode {
       {isError && mockCoins.length > 0 && (
         <>
           <>
-            <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center h-full">
+            <div className="bg-slate-100 shadow-md my-3 mx-1 p-3 rounded-md text-center">
               Coingecko rate limit is full. You now see old data. If you want to
               see the most current data, try again in 15-20 minutes.
             </div>
