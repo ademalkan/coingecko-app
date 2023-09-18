@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const coingeckoApiSlice = createApi({
   reducerPath: "coingeckoApiSlice",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.coingecko.com/apwafi/v3/coins/markets",
+    baseUrl: "https://api.coingecko.com/api/v3/coins/markets",
   }),
   endpoints: (builder) => ({
     getCoins: builder.query<
